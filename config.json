@@ -9,6 +9,6 @@
   "tau": 0.06,
   "tau_baseline": 0.06,
   "feedback": "generic",
-  "branch_mode": "raw",
+  "branch_mode": "syntax",
   "seeds": [1729, 2718, 31415, 16180]
 }
