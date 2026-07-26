@@ -1,5 +1,5 @@
 {
-  "method": "ttel",
+  "method": "ttel_no_null",
   "model": "Qwen/Qwen3-4B-Thinking-2507",
   "attempts": 4,
   "max_new_tokens": 1536,
