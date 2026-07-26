@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ttel-repro-{{ORX_RUN}}
+spec:
+  activeDeadlineSeconds: 32400
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: run
+          image: pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+          command: ["bash", "-c", "$ORX_SCRIPT"]
+          resources:
+            requests:
+              nvidia.com/gpu: "4"
+              cpu: "32"
+              memory: 192Gi
+            limits:
+              nvidia.com/gpu: "4"
+              cpu: "32"
+              memory: 192Gi
+          env:
+            - name: HF_HOME
+              value: /workspace/.hf-cache
+            - name: TOKENIZERS_PARALLELISM
+              value: "false"
+            - name: PYTHONUNBUFFERED
+              value: "1"
+          volumeMounts:
+            - name: dshm
+              mountPath: /dev/shm
+      volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 64Gi
+
