@@ -26,7 +26,6 @@ from typing import Any
 import numpy as np
 import requests
 import torch
-import torch.distributed as dist
 from huggingface_hub import snapshot_download
 from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
 
@@ -48,9 +47,8 @@ NULL_INSTRUCTION = (
 
 
 def setup_distributed() -> tuple[int, int, torch.device]:
-    dist.init_process_group("nccl")
-    rank = dist.get_rank()
-    world = dist.get_world_size()
+    rank = int(os.environ["RANK"])
+    world = int(os.environ["WORLD_SIZE"])
     local_rank = int(os.environ["LOCAL_RANK"])
     torch.cuda.set_device(local_rank)
     return rank, world, torch.device(f"cuda:{local_rank}")
@@ -59,6 +57,7 @@ def setup_distributed() -> tuple[int, int, torch.device]:
 def download_assets(rank: int, model_name: str) -> tuple[Path, Path]:
     model_dir = CACHE / "model"
     data_path = CACHE / "test6.jsonl"
+    ready_path = CACHE / ".assets-ready"
     if rank == 0:
         CACHE.mkdir(parents=True, exist_ok=True)
         if not data_path.exists():
@@ -70,7 +69,13 @@ def download_assets(rank: int, model_name: str) -> tuple[Path, Path]:
             local_dir=model_dir,
             token=os.environ.get("HF_TOKEN") or None,
         )
-    dist.barrier()
+        ready_path.write_text("ready\n")
+    else:
+        deadline = time.time() + 900
+        while not ready_path.exists():
+            if time.time() > deadline:
+                raise TimeoutError("Timed out waiting for rank zero to download assets")
+            time.sleep(1)
     return model_dir, data_path
 
 
@@ -560,10 +565,17 @@ def main() -> None:
         )
 
     local = {"rank": rank, "seed": seed, "tasks": task_results}
-    gathered: list[Any] | None = [None] * world if rank == 0 else None
-    dist.gather_object(local, gathered, dst=0)
+    result_path = CACHE / f"result-{rank}.json"
+    result_path.write_text(json.dumps(local))
     if rank == 0:
-        assert gathered is not None
+        deadline = time.time() + 1800
+        result_paths = [CACHE / f"result-{index}.json" for index in range(world)]
+        while not all(path.exists() for path in result_paths):
+            if time.time() > deadline:
+                missing = [str(path) for path in result_paths if not path.exists()]
+                raise TimeoutError(f"Timed out waiting for worker results: {missing}")
+            time.sleep(1)
+        gathered = [json.loads(path.read_text()) for path in result_paths]
         gathered.sort(key=lambda item: item["rank"])
         evidence = {
             "schema_version": 1,
@@ -579,8 +591,6 @@ def main() -> None:
             "seeds": gathered,
         }
         print("ORX_RESULT_JSON=" + json.dumps(evidence, sort_keys=True), flush=True)
-    dist.barrier()
-    dist.destroy_process_group()
 
 
 if __name__ == "__main__":
