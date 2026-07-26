@@ -6,8 +6,8 @@
   "tasks_per_difficulty": 4,
   "temperature": 1.0,
   "top_p": 1.0,
-  "tau": 0.06,
-  "tau_baseline": 0.06,
+  "tau": 0.10,
+  "tau_baseline": 0.10,
   "feedback": "generic",
   "branch_mode": "raw",
   "seeds": [1729, 2718, 31415, 16180]
