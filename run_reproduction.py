@@ -48,12 +48,13 @@ NULL_INSTRUCTION = (
 
 
 def setup_distributed() -> tuple[int, int, torch.device]:
-    dist.init_process_group("nccl")
-    rank = dist.get_rank()
-    world = dist.get_world_size()
     local_rank = int(os.environ["LOCAL_RANK"])
     torch.cuda.set_device(local_rank)
-    return rank, world, torch.device(f"cuda:{local_rank}")
+    device = torch.device(f"cuda:{local_rank}")
+    dist.init_process_group("nccl", device_id=device)
+    rank = dist.get_rank()
+    world = dist.get_world_size()
+    return rank, world, device
 
 
 def download_assets(rank: int, model_name: str) -> tuple[Path, Path]:
