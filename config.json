@@ -3,7 +3,7 @@
   "model": "Qwen/Qwen3-4B-Thinking-2507",
   "attempts": 4,
   "max_new_tokens": 1536,
-  "tasks_per_difficulty": 4,
+  "tasks_per_difficulty": 8,
   "temperature": 1.0,
   "top_p": 1.0,
   "tau": 0.06,
@@ -12,4 +12,3 @@
   "branch_mode": "raw",
   "seeds": [1729, 2718, 31415, 16180]
 }
-
