@@ -1,5 +1,5 @@
 {
-  "method": "independent",
+  "method": "ttel",
   "model": "Qwen/Qwen3-4B-Thinking-2507",
   "attempts": 4,
   "max_new_tokens": 1536,
@@ -8,8 +8,7 @@
   "top_p": 1.0,
   "tau": 0.06,
   "tau_baseline": 0.06,
-  "feedback": "generic",
+  "feedback": "environment",
   "branch_mode": "raw",
   "seeds": [1729, 2718, 31415, 16180]
 }
-
