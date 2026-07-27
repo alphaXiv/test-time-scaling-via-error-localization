@@ -1,3 +1,4 @@
 .run-cache/
 __pycache__/
+__marimo__/
 *.py[cod]
