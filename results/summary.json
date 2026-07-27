@@ -1,0 +1,138 @@
+{
+  "paper": {
+    "benchmark": "LiveCodeBench V6",
+    "model": "Qwen3-8B",
+    "attempt_budget": 64,
+    "ttel_pass_rate": 0.710,
+    "independent_pass_rate": 0.646,
+    "refinement_pass_rate": 0.567,
+    "ttel_mean_tokens": 360400,
+    "independent_mean_tokens": 735000,
+    "generic_feedback_pass_rate_at_16": 0.630,
+    "environment_feedback_pass_rate_at_16": 0.658,
+    "filtered_mean_spikes": 19.3,
+    "no_null_mean_spikes": 486.0,
+    "no_null_pass_rate_at_16": 0.592
+  },
+  "expanded": {
+    "scope": "24 deterministic stdin-only LiveCodeBench V6 tasks, stratified 8 easy / 8 medium / 8 hard, 4 seeds",
+    "refinement": {
+      "run_id": "af8d8e43-9bce-4f38-b6d2-f20ac8a707e8",
+      "elapsed_seconds": 2461.06135225296,
+      "curve": [
+        [1536.0, 0.020833333333333332],
+        [2997.2708333333335, 0.09375],
+        [4374.302083333333, 0.16666666666666666],
+        [5609.8125, 0.2916666666666667]
+      ]
+    },
+    "independent": {
+      "run_id": "b050510f-2056-4ce6-a07d-f1760c60de41",
+      "elapsed_seconds": 2596.1553547382355,
+      "curve": [
+        [1528.1041666666667, 0.03125],
+        [3016.1041666666665, 0.03125],
+        [4504.104166666667, 0.041666666666666664],
+        [5976.104166666667, 0.041666666666666664]
+      ]
+    },
+    "filtered_ttel": {
+      "run_id": "3267b4b1-27dc-405f-8136-fb1430ccd4e5",
+      "elapsed_seconds": 2373.04,
+      "curve": [
+        [1534.52, 0.020833333333333332],
+        [2993.01, 0.13541666666666666],
+        [4296.46, 0.20833333333333334],
+        [5460.40, 0.3229166666666667]
+      ],
+      "mean_spikes": 13.1824,
+      "branch_rate": 0.98742,
+      "mean_branch_fraction": 0.152425,
+      "prefix_valid_rate": 1.0
+    },
+    "no_null_ttel": {
+      "run_id": "f03b795e-61c3-4289-aa12-1716b800b2e0",
+      "elapsed_seconds": 2406.42,
+      "curve": [
+        [1536.0, 0.020833333333333332],
+        [2996.08, 0.15625],
+        [4252.42, 0.2604166666666667],
+        [5337.65, 0.3333333333333333]
+      ],
+      "mean_spikes": 126.758,
+      "branch_rate": 1.0,
+      "mean_branch_fraction": 0.445945,
+      "prefix_valid_rate": 1.0
+    },
+    "environment_ttel": {
+      "run_id": "30a470b2-5ac2-41dd-a8b3-901fabe469dd",
+      "elapsed_seconds": 2305.7169110774994,
+      "curve": [
+        [1536.0, 0.03125],
+        [2961.1979166666665, 0.13541666666666666],
+        [4218.677083333333, 0.2916666666666667],
+        [5273.979166666667, 0.3333333333333333]
+      ],
+      "mean_spikes": 15.493506493506494,
+      "branch_rate": 0.987012987012987,
+      "mean_branch_fraction": 0.13590358289386484,
+      "prefix_valid_rate": 0.9868421052631579
+    },
+    "environment_no_null_ttel": {
+      "run_id": "9c6fdd5a-7b54-4c0f-87fc-71cf6caf63c8",
+      "elapsed_seconds": 2459.503012418747,
+      "curve": [
+        [1536.0, 0.03125],
+        [2991.3333333333335, 0.10416666666666667],
+        [4310.885416666667, 0.22916666666666666],
+        [5406.635416666667, 0.3229166666666667]
+      ],
+      "mean_spikes": 135.09119496855345,
+      "branch_rate": 1.0,
+      "mean_branch_fraction": 0.45385994913203753,
+      "prefix_valid_rate": 0.9874213836477987
+    },
+    "syntax_ttel": {
+      "run_id": "8023b15d-a0b9-4a66-9846-cbc3219cb9e7",
+      "elapsed_seconds": 2385.7127487659454,
+      "curve": [
+        [1529.125, 0.03125],
+        [2972.125, 0.125],
+        [4281.739583333333, 0.21875],
+        [5435.15625, 0.2604166666666667]
+      ],
+      "mean_spikes": 13.374613003095975,
+      "branch_rate": 0.9938080495356038,
+      "mean_branch_fraction": 0.1406328565037688,
+      "prefix_valid_rate": 0.9906542056074766
+    },
+    "paired_task_bootstrap_95": {
+      "resamples": 20000,
+      "seed": 260721453,
+      "unit": "24 tasks after averaging the four seeds",
+      "ttel_minus_independent_pass_percentage_points": [13.54, 43.75],
+      "ttel_minus_independent_tokens": [-841.84, -232.78],
+      "ttel_minus_refinement_pass_percentage_points": [-5.21, 12.50],
+      "ttel_minus_refinement_tokens": [-326.96, -7.96],
+      "environment_minus_generic_pass_percentage_points": [-5.21, 7.29],
+      "environment_minus_generic_tokens": [-393.96, -33.87]
+    }
+  },
+  "pilot": {
+    "scope": "12 deterministic stdin-only LiveCodeBench V6 tasks, stratified 4 easy / 4 medium / 4 hard, 4 seeds",
+    "independent": {"pass_rate": 0.0625, "tokens": 5916.625},
+    "refinement": {"pass_rate": 0.2916666666666667, "tokens": 5566.04},
+    "filtered_ttel": {"pass_rate": 0.3333333333333333, "tokens": 5306.02, "mean_spikes": 12.2418, "branch_fraction": 0.1500},
+    "no_null_ttel": {"pass_rate": 0.3333333333333333, "tokens": 5255.96, "mean_spikes": 107.204, "branch_fraction": 0.4683},
+    "environment_ttel": {"pass_rate": 0.3541666666666667, "tokens": 5175.56, "mean_spikes": 14.1467, "branch_fraction": 0.13976},
+    "environment_no_null": {"pass_rate": 0.3541666666666667, "tokens": 5190.42, "mean_spikes": 123.128, "branch_fraction": 0.44329},
+    "syntax_ttel": {"pass_rate": 0.25, "tokens": 5331.83, "mean_spikes": 14.299, "branch_fraction": 0.1570},
+    "tau_0_04": {"pass_rate": 0.2916666666666667, "tokens": 5335.46, "mean_spikes": 15.391},
+    "tau_0_10": {"pass_rate": 0.2916666666666667, "tokens": 5250.23, "mean_spikes": 8.552}
+  },
+  "compute": {
+    "backend": "kubernetes",
+    "gpu_model": "NVIDIA RTX PRO 6000 Blackwell",
+    "peak_concurrent_gpu_count": 16
+  }
+}
