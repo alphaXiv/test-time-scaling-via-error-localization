@@ -133,6 +133,9 @@
   "compute": {
     "backend": "kubernetes",
     "gpu_model": "NVIDIA RTX PRO 6000 Blackwell",
-    "peak_concurrent_gpu_count": 16
+    "peak_concurrent_gpu_count": 16,
+    "evidence_window_started_utc": "2026-07-26T22:19:25Z",
+    "evidence_window_completed_utc": "2026-07-27T00:37:52Z",
+    "wall_hours": 2.31
   }
 }

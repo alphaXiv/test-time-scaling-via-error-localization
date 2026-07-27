@@ -10,7 +10,7 @@ The paper’s Qwen3-8B result at 64 attempts was 71.0% for TTEL, 64.6% for indep
 - [Self-contained marimo notebook](notebooks/ttel_reproduction.py)
 - [Machine-readable measurements](results/summary.json)
 
-All formal runs used the configured Kubernetes backend on NVIDIA RTX PRO 6000 Blackwell GPUs, with 16 GPUs concurrently at peak and four GPUs per experiment.
+All formal runs used the configured Kubernetes backend on NVIDIA RTX PRO 6000 Blackwell GPUs, with 16 GPUs concurrently at peak and four GPUs per experiment. The fresh evidence window lasted 2.31 hours.
 
 ## Experiment log
 

@@ -5,9 +5,10 @@
 #   "matplotlib>=3.9",
 # ]
 # ///
+
 import marimo
 
-__generated_with = "0.14.17"
+__generated_with = "0.23.15"
 app = marimo.App(width="medium")
 
 
@@ -15,28 +16,27 @@ app = marimo.App(width="medium")
 def _():
     import marimo as mo
     import matplotlib.pyplot as plt
+
     return mo, plt
 
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
-# Error localization as a test-time scaling strategy
+    mo.md(r"""
+    # Error localization as a test-time scaling strategy
 
-A failed program need not be thrown away. *Test-Time Scaling via Error
-Localization* proposes comparing token probabilities with and without
-failure feedback, keeping the prefix before the most diagnostic token,
-and sampling a new suffix. This notebook walks through our fresh,
-executable reproduction of that mechanism.
+    A failed program need not be thrown away. *Test-Time Scaling via Error
+    Localization* proposes comparing token probabilities with and without
+    failure feedback, keeping the prefix before the most diagnostic token,
+    and sampling a new suffix. This notebook walks through our fresh,
+    executable reproduction of that mechanism.
 
-**Verdict: partially reproduced.** On 24 LiveCodeBench V6 tasks and four
-seeds, filtered TTEL reached **32.3% pass@4 at 5,460 mean generated
-tokens**, versus **4.2% at 5,976 tokens** for independent sampling. The
-null-feedback filter localized sharply, but did not improve downstream
-success in this bounded experiment.
-        """
-    )
+    **Verdict: partially reproduced.** On 24 LiveCodeBench V6 tasks and four
+    seeds, filtered TTEL reached **32.3% pass@4 at 5,460 mean generated
+    tokens**, versus **4.2% at 5,976 tokens** for independent sampling. The
+    null-feedback filter localized sharply; downstream gains appeared with
+    executable feedback but not with a generic failure sentence.
+    """)
     return
 
 
@@ -140,24 +140,22 @@ def _(curves, mo, plt):
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
-## From feedback to a branch point
+    mo.md(r"""
+    ## From feedback to a branch point
 
-For a failed trajectory \(y_1,\ldots,y_T\), we teacher-force those same
-tokens under three prompts:
+    For a failed trajectory \(y_1,\ldots,y_T\), we teacher-force those same
+    tokens under three prompts:
 
-1. the original problem (the *student*);
-2. the problem, failed answer, and true feedback (the *teacher*);
-3. the same history with a neutral instruction (the *null baseline*).
+    1. the original problem (the *student*);
+    2. the problem, failed answer, and true feedback (the *teacher*);
+    3. the same history with a neutral instruction (the *null baseline*).
 
-A token qualifies when true feedback lowers its probability by more than
-0.06 while neutral feedback does not. Among qualifying tokens, we branch
-where the teacher/null separation is greatest. Independent sampling
-discards the whole answer; refinement puts the whole failed code back
-into a new prompt; TTEL alone preserves the selected prefix.
-        """
-    )
+    A token qualifies when true feedback lowers its probability by more than
+    0.06 while neutral feedback does not. Among qualifying tokens, we branch
+    where the teacher/null separation is greatest. Independent sampling
+    discards the whole answer; refinement puts the whole failed code back
+    into a new prompt; TTEL alone preserves the selected prefix.
+    """)
     return
 
 
@@ -256,22 +254,21 @@ def _(mo, pilot, selector):
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
-## Scope, compute, and what remains
+    mo.md(r"""
+    ## Scope, compute, and what remains
 
-We used a deterministic stdin-only subset of 24 LiveCodeBench V6 tasks
-(8 per difficulty), Qwen3-4B-Thinking-2507, four seeds, four attempts,
-and at most 1,536 generated tokens per attempt. All formal runs executed
-on Kubernetes using NVIDIA RTX PRO 6000 Blackwell GPUs, with 16 GPUs
-occupied concurrently at peak.
+    We used a deterministic stdin-only subset of 24 LiveCodeBench V6 tasks
+    (8 per difficulty), Qwen3-4B-Thinking-2507, four seeds, four attempts,
+    and at most 1,536 generated tokens per attempt. All formal runs executed
+    on Kubernetes using NVIDIA RTX PRO 6000 Blackwell GPUs, with 16 GPUs
+    occupied concurrently at peak.
 
-The paper instead evaluated 131 tasks, up to 64 attempts, a 16,384-token
-cap, and primarily Qwen3-8B. A full reproduction still needs that scale,
-additional seeds, and confidence intervals. The repository report
-records the exact commands, run lineage, and per-claim assessment.
-        """
-    )
+    The paper instead evaluated 131 tasks, up to 64 attempts, a 16,384-token
+    cap, and primarily Qwen3-8B. A full reproduction still needs that scale,
+    additional seeds, and confidence intervals. The repository report
+    records the exact commands, run lineage, and per-claim assessment. The
+    fresh Kubernetes evidence window lasted 2.31 hours.
+    """)
     return
 
 
